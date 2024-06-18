@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using ProyectoP2.Models;
 using ProyectoP2.Utilities;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +7,6 @@ namespace ProyectoP2.DataAccess
 {
     public class VentaDbContext : DbContext
     {
-
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<DetalleVenta> DetalleVentas { get; set; }
         public DbSet<Venta> Ventas { get; set; }
@@ -22,7 +17,6 @@ namespace ProyectoP2.DataAccess
             string connectionString = ConexionDb.ObtenerConnectionString();
             optionsBuilder.UseSqlServer(connectionString);
         }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -53,7 +47,7 @@ namespace ProyectoP2.DataAccess
                 entity.HasOne(dv => dv.RefVenta).WithMany(v => v.RefDetalleVenta)
                 .HasForeignKey(dv => dv.IdVenta);
                 entity.HasOne(dv => dv.RefProducto).WithMany(p => p.RefDetalleVenta)
-               .HasForeignKey(p => p.IdProducto);
+                .HasForeignKey(dv => dv.IdProducto);
             });
 
             modelBuilder.Entity<Categoria>().HasData(
@@ -64,7 +58,6 @@ namespace ProyectoP2.DataAccess
                 new Categoria { IdCategoria = 5, Nombre = "Memorias" },
                 new Categoria { IdCategoria = 6, Nombre = "Accesorios" }
                 );
-
 
             modelBuilder.Entity<Producto>().HasData(
                 new Producto
@@ -204,8 +197,5 @@ namespace ProyectoP2.DataAccess
                 }
                 );
         }
-
-
     }
 }
-

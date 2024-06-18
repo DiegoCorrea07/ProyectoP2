@@ -4,6 +4,7 @@ using ProyectoP2.Models;
 using ProyectoP2.Utilities;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.EntityFrameworkCore;
+ 
 
 namespace ProyectoP2.Views;
 
@@ -13,10 +14,10 @@ public partial class EscanearProductoPage : ContentPage
     public EscanearProductoPage(VentaDbContext context)
     {
         InitializeComponent();
-        cameraView.BarCodeOptions = new Camera.MAUI.ZXingHelper.BarcodeDecodeOptions()
+        cameraView.BarCodeOptions = new Camera.MAUI.BarcodeDecodeOptions()
         {
             TryHarder = true,
-            PossibleFormats = { ZXing.BarcodeFormat.All_1D }
+            PossibleFormats = MapBarcodeFormats(new List<ZXing.BarcodeFormat> { ZXing.BarcodeFormat.All_1D }) 
         };
         _context = context;
     }
@@ -58,5 +59,16 @@ public partial class EscanearProductoPage : ContentPage
         });
 
         await Shell.Current.Navigation.PopModalAsync();
+    }
+
+    // Método para mapear formatos de ZXing a Camera.MAUI
+    private List<Camera.MAUI.BarcodeFormat> MapBarcodeFormats(List<ZXing.BarcodeFormat> zxingFormats)
+    {
+        var cameraMauiFormats = new List<Camera.MAUI.BarcodeFormat>();
+        foreach (var format in zxingFormats)
+        {
+            cameraMauiFormats.Add((Camera.MAUI.BarcodeFormat)Enum.Parse(typeof(Camera.MAUI.BarcodeFormat), format.ToString()));
+        }
+        return cameraMauiFormats;
     }
 }

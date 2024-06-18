@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoP2.Utilities
 {
-    internal class BarcodeResult
+    public class BarcodeResult
     {
         public string BarcodeValue { get; set; }
     }

@@ -1,7 +1,7 @@
+using Camera.MAUI;
 using CommunityToolkit.Mvvm.Messaging;
 using ProyectoP2.Utilities;
-using Camera.MAUI;
-using Camera.MAUI.ZXingHelper;
+
 
 
 namespace ProyectoP2.Views
@@ -11,10 +11,10 @@ namespace ProyectoP2.Views
         public BarcodePage()
         {
             InitializeComponent();
-            cameraView.BarCodeOptions = new Camera.MAUI.ZXingHelper.BarcodeDecodeOptions()
+            cameraView.BarCodeOptions = new BarcodeDecodeOptions
             {
                 TryHarder = true,
-                PossibleFormats = { ZXing.BarcodeFormat.All_1D }
+                PossibleFormats = MapBarcodeFormats(new List<ZXing.BarcodeFormat> { ZXing.BarcodeFormat.All_1D }) // <-- Llamada al método de mapeo
             };
         }
 
@@ -33,13 +33,25 @@ namespace ProyectoP2.Views
 
         private void cameraView_BarcodeDetected(object sender, Camera.MAUI.ZXingHelper.BarcodeEventArgs args)
         {
-            BarcodeResult barcodeResult = new BarcodeResult { BarcodeValue = args.Result[0].Text };
+            ProyectoP2.Utilities.BarcodeResult barcodeResult = new ProyectoP2.Utilities.BarcodeResult { BarcodeValue = args.Result[0].Text }; 
             WeakReferenceMessenger.Default.Send(new BarcodeScannedMessage(barcodeResult));
+
 
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 await Shell.Current.Navigation.PopModalAsync();
             });
+        }
+
+        // Método para mapear formatos de ZXing a Camera.MAUI
+        private List<BarcodeFormat> MapBarcodeFormats(List<ZXing.BarcodeFormat> zxingFormats)
+        {
+            var cameraMauiFormats = new List<BarcodeFormat>();
+            foreach (var format in zxingFormats)
+            {
+                cameraMauiFormats.Add((BarcodeFormat)Enum.Parse(typeof(BarcodeFormat), format.ToString()));
+            }
+            return cameraMauiFormats;
         }
     }
 }
