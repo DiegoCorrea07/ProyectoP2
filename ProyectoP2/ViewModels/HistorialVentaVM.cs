@@ -50,9 +50,10 @@ namespace ProyectoP2.ViewModels
             IsLoading = false;
         }
 
+
         public ICommand DescargarVentaCommand => new Command<VentaDTO>(async (venta) => await DescargarVentaAsync(venta));
 
-        private async Task DescargarVentaAsync(VentaDTO venta)
+        public async Task DescargarVentaAsync(VentaDTO venta)
         {
             try
             {
@@ -68,12 +69,15 @@ namespace ProyectoP2.ViewModels
                     Title = "Compartir Detalles de Venta",
                     File = new ShareFile(filePath)
                 });
+
+                await Application.Current.MainPage.DisplayAlert("Éxito", "Descarga realizada con éxito", "OK");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                await Application.Current.MainPage.DisplayAlert("Error", $"Error al descargar la venta: {ex.Message}", "OK");
             }
         }
+        
 
         private string GenerarTextoVenta(VentaDTO venta)
         {

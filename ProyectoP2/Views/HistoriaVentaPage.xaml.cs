@@ -1,12 +1,24 @@
+using ProyectoP2.DTOs;
 using ProyectoP2.ViewModels;
 
 namespace ProyectoP2.Views;
 
 public partial class HistoriaVentaPage : ContentPage
 {
-	public HistoriaVentaPage(HistorialVentaVM vm)
-	{
-		InitializeComponent();
+    private HistorialVentaVM _viewModel;
+
+    public HistoriaVentaPage(HistorialVentaVM vm)
+    {
+        InitializeComponent();
+        _viewModel = vm; // Guardar la referencia al ViewModel
         BindingContext = vm;
+    }
+
+    private async void DescargarVenta(object sender, EventArgs e)
+    {
+        if (sender is Button button && button.BindingContext is VentaDTO venta)
+        {
+            await _viewModel.DescargarVentaAsync(venta); // Llamar al método del ViewModel
+        }
     }
 }

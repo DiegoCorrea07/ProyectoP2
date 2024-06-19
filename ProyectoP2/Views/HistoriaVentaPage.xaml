@@ -1,63 +1,82 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:util="clr-namespace:ProyectoP2.Utilities"
              x:Class="ProyectoP2.Views.HistoriaVentaPage"
              xmlns:model="clr-namespace:ProyectoP2.DTOs"
-             Title="Historial Venta">
+             Title="Historial de Ventas"
+             BackgroundColor="{StaticResource bgFondo}">
 
-    <Grid Margin="10,15">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Grid Margin="5">
+        <Border BackgroundColor="{StaticResource bgFormulario}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="5"/>
+            </Border.StrokeShape>
 
-        <Label Grid.Row="0" Text="Mis Ventas" FontSize="Large" Margin="0,0,0,10"/>
+            <Grid Margin="10" RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-        <ScrollView Grid.Row="1">
-            <CollectionView ItemsSource="{Binding ListaVenta}">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="5" Orientation="Vertical"/>
-                </CollectionView.ItemsLayout>
+                <StackLayout Grid.Row="0" Orientation="Horizontal">
+                    <Label Text="Historial de ventas" FontSize="Subtitle" HorizontalOptions="StartAndExpand"/>
+                    <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" Color="Blue" HeightRequest="25" 
+                                       VerticalOptions="Start"/>
+                </StackLayout>
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:VentaDTO">
-                        <Border Padding="10,5" HorizontalOptions="FillAndExpand">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="5"/>
-                            </Border.StrokeShape>
+                <ScrollView Grid.Row="1" IsVisible="{Binding ListaVenta.Count, Converter={StaticResource EmptyToBoolConverter}}">
+                    <CollectionView ItemsSource="{Binding ListaVenta}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="5" Orientation="Vertical"/>
+                        </CollectionView.ItemsLayout>
 
-                            <Grid Padding="5" ColumnDefinitions="*, Auto">
-                                <Label Grid.Column="1" Text="{Binding Total, StringFormat='{0:C}'}"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="End"
-                                   TextColor="#1d94ab"
-                                   FontSize="13"
-                                   Margin="0,0,10,0" />
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:VentaDTO">
+                                <Border Padding="10,5" HorizontalOptions="FillAndExpand">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5"/>
+                                    </Border.StrokeShape>
 
-                                <StackLayout Grid.Column="0" Orientation="Vertical">
-                                    <Label Text="{Binding NumeroVenta}" FontAttributes="Bold" FontSize="13"/>
-                                    <Label Text="{Binding Cliente}" FontAttributes="Bold" FontSize="13"/>
-                                    <Label Text="{Binding FechaRegistro}" FontAttributes="Bold" FontSize="13"/>
+                                    <Grid Padding="5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="8*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout Grid.Column="0" Orientation="Vertical">
+                                            <Label Text="Código de Venta:" FontAttributes="Bold"/>
+                                            <Label Text="{Binding NumeroVenta}" Margin="0,0,0,5"/>
 
-                                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
-                                        <Label Grid.Row="0" Grid.Column="0" Text="Pagado con:" FontSize="13"/>
-                                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding PagoCon, StringFormat='{0:C}'}" FontAttributes="Bold" FontSize="13"/>
-                                        <Label Grid.Row="0" Grid.Column="1" Text="Cambio:" FontSize="13"/>
-                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Cambio, StringFormat='{0:C}'}" FontAttributes="Bold" FontSize="13"/>
+                                            <Label Text="Cliente:" FontAttributes="Bold"/>
+                                            <Label Text="{Binding Cliente}" Margin="0,0,0,5"/>
+
+                                            <Label Text="Pagado con:" FontAttributes="Bold"/>
+                                            <Label Text="{Binding PagoCon}" Margin="0,0,0,5"/>
+
+                                            <Label Text="Cambio:" FontAttributes="Bold"/>
+                                            <Label Text="{Binding Cambio}" Margin="0,0,0,5"/>
+
+                                            <Label Text="Fecha:" FontAttributes="Bold"/>
+                                            <Label Text="{Binding FechaRegistro}" Margin="0,0,0,5"/>
+
+                                            <Label Text="Total:" FontAttributes="Bold"/>
+                                            <Label Text="{Binding Total, StringFormat='{0:C}'}" TextColor="#1d94ab" Margin="0,0,0,10"/>
+                                        </StackLayout>
+                                        <StackLayout Grid.Column="1" Orientation="Vertical" HorizontalOptions="End" VerticalOptions="CenterAndExpand">
+                                            <Button FontFamily="FaSolid" Text="{Static util:IconFont.Download}" FontSize="24" Padding="4" HeightRequest="60" WidthRequest="80"
+                                                     BackgroundColor="{StaticResource bgFondo}" 
+                                                     TextColor="White"
+                                                     Command="{Binding BindingContext.DescargarVentaCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
+                                                     CommandParameter="{Binding}"/>
+                                        </StackLayout>
                                     </Grid>
-                                </StackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
 
-                                <Button Grid.Column="1" Text="Descargar Detalles"
-                                        Command="{Binding BindingContext.DescargarVentaCommand, Source={x:Reference HistoriaVentaPage}}"
-                                        CommandParameter="{Binding .}"
-                                        VerticalOptions="Center" 
-                                        HorizontalOptions="End"/>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </ScrollView>
+            </Grid>
+        </Border>
     </Grid>
-
 </ContentPage>
