@@ -22,7 +22,7 @@ namespace ProyectoP2.ViewModels
         }
 
         [ObservableProperty]
-        private decimal totalIngresos;
+        private double totalIngresos;
 
         [ObservableProperty]
         private int totalVentas;
@@ -35,7 +35,7 @@ namespace ProyectoP2.ViewModels
 
         private async Task ObtenerResumen()
         {
-            decimal totalingresos = 0;
+            double totalingresos = 0;
             var lstVentas = await _context.Ventas.ToListAsync();
             foreach (var item in lstVentas)
             {

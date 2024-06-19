@@ -67,7 +67,7 @@ namespace ProyectoP2.DataAccess
                     Nombre = "To Kill a Mockingbird",
                     IdCategoria = 1,
                     Cantidad = 20,
-                    Precio = 12.90m
+                    Precio = 12.90
                 },
                 new Producto
                 {
@@ -76,7 +76,7 @@ namespace ProyectoP2.DataAccess
                     Nombre = "Educated: A Memoir",
                     IdCategoria = 2,
                     Cantidad = 30,
-                    Precio = 15.49m
+                    Precio = 15.49
                 },
                 new Producto
                 {
@@ -85,7 +85,7 @@ namespace ProyectoP2.DataAccess
                     Nombre = "Harry Potter and the Sorcerer's Stone",
                     IdCategoria = 3,
                     Cantidad = 30,
-                    Precio = 9.99m
+                    Precio = 9.99
                 },
                 new Producto
                 {
@@ -94,7 +94,7 @@ namespace ProyectoP2.DataAccess
                     Nombre = "The Art Book",
                     IdCategoria = 4,
                     Cantidad = 25,
-                    Precio = 39.99m
+                    Precio = 39.99
                 },
                 new Producto
                 {
@@ -103,7 +103,7 @@ namespace ProyectoP2.DataAccess
                     Nombre = "National Geographic Kids Almanac 2023",
                     IdCategoria = 5,
                     Cantidad = 15,
-                    Precio = 14.95m
+                    Precio = 14.95
                 },
                 new Producto
                 {
@@ -112,7 +112,7 @@ namespace ProyectoP2.DataAccess
                     Nombre = "Mere Christianity",
                     IdCategoria = 6,
                     Cantidad = 18,
-                    Precio = 8.99m
+                    Precio = 8.99
                 }
             );
 

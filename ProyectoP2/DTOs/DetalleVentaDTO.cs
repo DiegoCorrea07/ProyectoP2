@@ -15,6 +15,6 @@ namespace ProyectoP2.DTOs
         [ObservableProperty]
         public int cantidad;
         [ObservableProperty]
-        public decimal total;
+        public double total;
     }
 }

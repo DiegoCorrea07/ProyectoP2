@@ -26,6 +26,6 @@ namespace ProyectoP2.DTOs
         public int cantidad;
 
         [ObservableProperty]
-        public decimal precio;
+        public double precio;
     }
 }

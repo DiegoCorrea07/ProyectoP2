@@ -43,7 +43,7 @@ namespace ProyectoP2.ViewModels
         private int cantidad;
 
         [ObservableProperty]
-        private decimal precio;
+        private double precio;
 
         [ObservableProperty]
         ObservableCollection<CategoriaDTO> listaCategoria;

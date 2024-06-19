@@ -46,13 +46,13 @@ namespace ProyectoP2.ViewModels
         private ObservableCollection<DetalleVentaDTO> detalleVenta = new ObservableCollection<DetalleVentaDTO>();
 
         [ObservableProperty]
-        private decimal total;
+        private double total;
 
         [ObservableProperty]
-        private decimal pagoCon;
+        private double pagoCon;
 
         [ObservableProperty]
-        private decimal cambio;
+        private double cambio;
 
         [ObservableProperty]
         private System.Drawing.Color cambioColor;

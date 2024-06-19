@@ -16,7 +16,7 @@ namespace ProyectoP2.Models
         public int IdCategoria { get; set; }
         public virtual Categoria RefCategoria { get; set; }
         public int Cantidad { get; set; }
-        public decimal Precio { get; set; }
+        public double Precio { get; set; }
         public virtual ICollection<DetalleVenta> RefDetalleVenta { get; set; } = new List<DetalleVenta>();
     }
 }

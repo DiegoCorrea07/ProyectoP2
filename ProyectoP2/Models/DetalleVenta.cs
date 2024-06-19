@@ -17,7 +17,7 @@ namespace ProyectoP2.Models
         public int IdProducto { get; set; }
         public virtual Producto RefProducto { get; set; }
         public int Cantidad { get; set; }
-        public decimal Total { get; set; }
+        public double Total { get; set; }
         public int IdVenta { get; set; }
         public virtual Venta RefVenta { get; set; }
     }
