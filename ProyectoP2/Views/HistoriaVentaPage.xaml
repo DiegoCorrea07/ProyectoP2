@@ -4,6 +4,7 @@
              x:Class="ProyectoP2.Views.HistoriaVentaPage"
              xmlns:model="clr-namespace:ProyectoP2.DTOs"
              Title="Historial Venta">
+
     <Grid Margin="10,15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -13,48 +14,50 @@
         <Label Grid.Row="0" Text="Mis Ventas" FontSize="Large" Margin="0,0,0,10"/>
 
         <ScrollView Grid.Row="1">
-
-            <CollectionView SelectionMode="Single" ItemsSource="{Binding ListaVenta}" HorizontalOptions="FillAndExpand">
+            <CollectionView ItemsSource="{Binding ListaVenta}">
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="20"/>
+                    <LinearItemsLayout ItemSpacing="5" Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:VentaDTO">
+                        <Border Padding="10,5" HorizontalOptions="FillAndExpand">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5"/>
+                            </Border.StrokeShape>
 
-                        <Frame HorizontalOptions="FillAndExpand">
-                            <StackLayout Orientation="Vertical" Spacing="5">
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="Numero de venta:" FontAttributes="Bold" HorizontalOptions="StartAndExpand" FontSize="13"/>
-                                    <Label Text="{Binding NumeroVenta}" FontAttributes="Bold" HorizontalOptions="EndAndExpand"  FontSize="13"/>
-                                </StackLayout>
-                                <Border HorizontalOptions="FillAndExpand" Stroke="#dadada"></Border>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="Cliente:"  HorizontalOptions="StartAndExpand"  FontSize="13"/>
-                                    <Label Text="{Binding Cliente}"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"  FontSize="13"/>
-                                </StackLayout>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="Pagado con:" HorizontalOptions="StartAndExpand"  FontSize="13"/>
-                                    <Label Text="{Binding PagoCon,StringFormat='{0:C}'}" FontAttributes="Bold" HorizontalOptions="EndAndExpand"  FontSize="13"/>
-                                </StackLayout>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="Cambio:" HorizontalOptions="StartAndExpand"/>
-                                    <Label Text="{Binding Cambio,StringFormat='{0:C}'}" FontAttributes="Bold" HorizontalOptions="EndAndExpand"  FontSize="13"/>
-                                </StackLayout>
-                                <Border HorizontalOptions="FillAndExpand" Stroke="#dadada"></Border>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding FechaRegistro}" FontAttributes="Bold" HorizontalOptions="StartAndExpand"  FontSize="13"/>
-                                    <Label Text="Total:" FontAttributes="Bold" HorizontalOptions="EndAndExpand"  FontSize="13"/>
-                                    <Label Text="{Binding Total,StringFormat='{0:C}'}" FontAttributes="Bold" HorizontalOptions="EndAndExpand" TextColor="#1d94ab"  FontSize="13"/>
-                                </StackLayout>
-                            </StackLayout>
-                        </Frame>
+                            <Grid Padding="5" ColumnDefinitions="*, Auto">
+                                <Label Grid.Column="1" Text="{Binding Total, StringFormat='{0:C}'}"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="End"
+                                   TextColor="#1d94ab"
+                                   FontSize="13"
+                                   Margin="0,0,10,0" />
 
+                                <StackLayout Grid.Column="0" Orientation="Vertical">
+                                    <Label Text="{Binding NumeroVenta}" FontAttributes="Bold" FontSize="13"/>
+                                    <Label Text="{Binding Cliente}" FontAttributes="Bold" FontSize="13"/>
+                                    <Label Text="{Binding FechaRegistro}" FontAttributes="Bold" FontSize="13"/>
+
+                                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
+                                        <Label Grid.Row="0" Grid.Column="0" Text="Pagado con:" FontSize="13"/>
+                                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding PagoCon, StringFormat='{0:C}'}" FontAttributes="Bold" FontSize="13"/>
+                                        <Label Grid.Row="0" Grid.Column="1" Text="Cambio:" FontSize="13"/>
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Cambio, StringFormat='{0:C}'}" FontAttributes="Bold" FontSize="13"/>
+                                    </Grid>
+                                </StackLayout>
+
+                                <Button Grid.Column="1" Text="Descargar Detalles"
+                                        Command="{Binding BindingContext.DescargarVentaCommand, Source={x:Reference HistoriaVentaPage}}"
+                                        CommandParameter="{Binding .}"
+                                        VerticalOptions="Center" 
+                                        HorizontalOptions="End"/>
+                            </Grid>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-
             </CollectionView>
-
         </ScrollView>
     </Grid>
+
 </ContentPage>

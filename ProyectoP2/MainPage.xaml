@@ -28,7 +28,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" FontFamily="FaSolid"  Text="{Static util:IconFont.EuroSign}" FontSize="40"/>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" FontFamily="FaSolid" TextColor="{StaticResource Primary}" Text="{Static util:IconFont.Wallet}" FontSize="40"/>
                     <Label Grid.Column="1" Grid.Row="0" Text="Total Ingresos"/>
                     <Label Grid.Column="1" Grid.Row="1" Text="{Binding TotalIngresos}" TextColor="#1d94ab"/>
                 </Grid>
@@ -44,7 +44,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" FontFamily="FaSolid"  Text="{Static util:IconFont.Tags}" FontSize="40"/>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" FontFamily="FaSolid" TextColor="{StaticResource Primary}" Text="{Static util:IconFont.SquarePollVertical}" FontSize="40"/>
                     <Label Grid.Column="1" Grid.Row="0" Text="Total Ventas"/>
                     <Label Grid.Column="1" Grid.Row="1" Text="{Binding TotalVentas}" TextColor="#1d94ab"/>
                 </Grid>
@@ -60,7 +60,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" FontFamily="FaSolid"  Text="{Static util:IconFont.BoxesStacked}" FontSize="40"/>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" FontFamily="FaSolid" TextColor="{StaticResource Primary}" Text="{Static util:IconFont.BoxesPacking}" FontSize="40"/>
                     <Label Grid.Column="1" Grid.Row="0" Text="Total Productos"/>
                     <Label Grid.Column="1" Grid.Row="1" Text="{Binding TotalProductos}" TextColor="#1d94ab"/>
                 </Grid>
@@ -76,7 +76,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" FontFamily="FaSolid"  Text="{Static util:IconFont.LayerGroup}" FontSize="40"/>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" FontFamily="FaSolid" TextColor="{StaticResource Primary}" Text="{Static util:IconFont.LayerGroup}" FontSize="40"/>
                     <Label Grid.Column="1" Grid.Row="0" Text="Total Categorias"/>
                     <Label Grid.Column="1" Grid.Row="1" Text="{Binding TotalCategorias}" TextColor="#1d94ab"/>
                 </Grid>

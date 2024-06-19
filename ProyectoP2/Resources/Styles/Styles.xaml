@@ -6,7 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Color x:Key="PrimaryDarkText">#212121</Color>
-    <Color x:Key="Primary">#512BD4</Color>
+    <Color x:Key="Primary">#3B5D50</Color>
     <Color x:Key="PrimaryDark">#2B0B98</Color>
     <Color x:Key="SecondaryDarkText">#DFD8F7</Color>
     <Color x:Key="OffBlack">#141414</Color>

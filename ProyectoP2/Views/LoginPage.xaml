@@ -5,37 +5,46 @@
              xmlns:vm="clr-namespace:ProyectoP2.ViewModels"
              Title="LoginPage">
 
-    <ContentPage.BindingContext>
-        <vm:LoginVM/>
-    </ContentPage.BindingContext>
+    
+        
+        <ContentPage.BindingContext>
+            <vm:LoginVM/>
+        </ContentPage.BindingContext>
+    
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="1" Orientation="Vertical" Spacing="10">
+
+                <Label Text="BookSwap" TextColor="#3B5D50" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold"></Label>
+            
+                <Image Source="bookswap.png" HorizontalOptions="Center" HeightRequest="100" WidthRequest="100"/>
+
+                <Label Text="Bienvenido" TextColor="#375449" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold"></Label>
+
+                <StackLayout Orientation="Vertical" Margin="0,10" Spacing="5" HorizontalOptions="Center">
+                    <Label Text="Ingrese sus credenciales" TextColor="LightSlateGray" FontSize="Small" HorizontalOptions="Center"/>
+                    <Label Text="*Usuario:  Admin" TextColor="LightSlateGray" FontSize="Small" HorizontalOptions="Center"/>
+                    <Label Text="*Contraseña:  123" TextColor="LightSlateGray" FontSize="Small" HorizontalOptions="Center"/>
+                </StackLayout>
 
 
-        <StackLayout Grid.Row="1" Orientation="Vertical" Spacing="10">
-            <Image Source="dotnet_bot.svg" HorizontalOptions="Center" HeightRequest="100" WidthRequest="100"/>
+                <StackLayout Orientation="Vertical" Spacing="5" HorizontalOptions="FillAndExpand" Padding="30,0">
+                    <Entry Text="{Binding Usuario}" Placeholder="Usuario"/>
+                    <Entry Text="{Binding Password}" Placeholder="Contraseña" IsPassword="True"/>
 
-            <Label Text="Bienvenido" TextColor="#101010" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold"></Label>
+                    <BoxView HeightRequest="20" Color="Transparent"/>
 
-            <StackLayout Orientation="Vertical" Margin="0,10" Spacing="5" HorizontalOptions="Center">
-                <Label Text="Ingrese sus credenciales" TextColor="LightSlateGray" FontSize="Small" HorizontalOptions="Center"/>
-                <Label Text="*Usuario:  Admin" TextColor="LightSlateGray" FontSize="Small" HorizontalOptions="Center"/>
-                <Label Text="*Contraseña:  123" TextColor="LightSlateGray" FontSize="Small" HorizontalOptions="Center"/>
+                    <Button Text="Iniciar sesion" HeightRequest="50" FontSize="Medium" BackgroundColor="#3B5D50" Command="{Binding LoginCommand}"/>
+                </StackLayout>
+
             </StackLayout>
-
-
-            <StackLayout Orientation="Vertical" Spacing="5" HorizontalOptions="FillAndExpand" Padding="30,0">
-                <Entry Text="{Binding Usuario}" Placeholder="Usuario"/>
-                <Entry Text="{Binding Password}" Placeholder="Contraseña" IsPassword="True"/>
-
-                <Button Text="Iniciar sesion" HeightRequest="50" FontSize="Medium" BackgroundColor="#1d94ab" Command="{Binding LoginCommand}"/>
-            </StackLayout>
-
-        </StackLayout>
-    </Grid>
+        </Grid>
+    </ScrollView>
 </ContentPage>

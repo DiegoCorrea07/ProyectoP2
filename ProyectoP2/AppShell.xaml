@@ -6,9 +6,10 @@
     xmlns:local="clr-namespace:ProyectoP2"
     xmlns:pages="clr-namespace:ProyectoP2.Views"
     Shell.FlyoutBehavior="Flyout">
+    
 
     <Shell.FlyoutHeader>
-        <Image Source="dotnet_bot.svg" WidthRequest="120" Margin="10"></Image>
+        <Image Source="bookswap.png" WidthRequest="120" Margin="10"></Image>
     </Shell.FlyoutHeader>
 
     <ShellContent
@@ -18,30 +19,31 @@
         Route="MainPage" />
 
     <ShellContent
-     Icon="ticket.svg"
-    Title="Categorias"
-    ContentTemplate="{DataTemplate pages:CategoriasPage}"
-    Route="CategoriasPage" />
+        Icon="ticket.svg"
+        Title="Categorias"
+        ContentTemplate="{DataTemplate pages:CategoriasPage}"
+        Route="CategoriasPage" />
 
     <ShellContent
-        Icon="clipboard.svg"
+       Icon="clipboard.svg"
        Title="Inventario"
        ContentTemplate="{DataTemplate pages:InventarioPage}"
        Route="InventarioPage" />
 
     <ShellContent
-    Icon="shopping_cart.svg"
-   Title="Venta"
-   ContentTemplate="{DataTemplate pages:VentaPage}"
-   Route="VentaPage" />
+       Icon="shopping_cart.svg"
+       Title="Venta"
+       ContentTemplate="{DataTemplate pages:VentaPage}"
+       Route="VentaPage" />
 
     <ShellContent
-     Icon="time.svg"
-    Title="Historial Venta"
-    ContentTemplate="{DataTemplate pages:HistoriaVentaPage}"
-    Route="HistoriaVentaPage" />
+        Icon="time.svg"
+        Title="Historial Venta"
+        ContentTemplate="{DataTemplate pages:HistoriaVentaPage}"
+        Route="HistoriaVentaPage" />
 
     <MenuItem IconImageSource="stand_by.svg" Text="Cerrar Sesión" Clicked="CerrarSesion_Clicked">
+        
     </MenuItem>
 
 </Shell>

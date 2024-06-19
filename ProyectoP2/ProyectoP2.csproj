@@ -25,6 +25,7 @@
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.proyectop2</ApplicationId>
+		<ApplicationIdGuid>4324da72-f387-4563-a3a4-46f19bdbda9c</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -47,7 +48,7 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -57,11 +58,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\fa-solid-900.ttf" />
+	  <None Remove="Resources\Images\bookswap.png" />
 	  <None Remove="Resources\Images\producto.jpg" />
 	</ItemGroup>
+	
 
 	<ItemGroup>
-		
 		<PackageReference Include="Camera.MAUI" Version="1.5.1" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.0" />
 		<PackageReference Include="CommunityToolkit.Maui.Core" Version="8.0.0" />
@@ -71,7 +74,6 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="ZXing.Net.MAUI" Version="0.4.0" />
-		
 	</ItemGroup>
 
 	<ItemGroup>
