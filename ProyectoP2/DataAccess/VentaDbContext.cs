@@ -16,6 +16,7 @@ namespace ProyectoP2.DataAccess
         {
             string connectionString = ConexionDb.ObtenerConnectionString();
             optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

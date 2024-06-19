@@ -130,10 +130,18 @@
                         <Entry Grid.Row="1" Grid.Column="0" Text="{Binding Total, StringFormat='{0:C}'}" VerticalOptions="Center" />
 
                         <Label Grid.Row="0" Grid.Column="1" Text="Pago con:" VerticalOptions="End"/>
-                        <Entry Grid.Row="1" Grid.Column="1" Keyboard="Numeric" IsEnabled="True" HorizontalOptions="FillAndExpand" Text="{Binding PagoCon}" />
+                        <Entry Grid.Row="1" Grid.Column="1" Keyboard="Numeric" HorizontalOptions="FillAndExpand">
+                            <Entry.Text>
+                                <Binding Path="PagoCon">
+                                    <Binding.Converter>
+                                        <util:DecimalConverter />
+                                    </Binding.Converter>
+                                </Binding>
+                            </Entry.Text>
+                        </Entry>
 
                         <Label Grid.Row="0" Grid.Column="2" Text="Cambio:" VerticalOptions="End"/>
-                        <Entry Grid.Row="1" Grid.Column="2" Keyboard="Numeric" IsEnabled="False" HorizontalOptions="FillAndExpand" Text="{Binding Cambio}" TextColor="{Binding CambioColor}"/>
+                        <Entry Grid.Row="1" Grid.Column="2" Keyboard="Numeric" IsEnabled="False" HorizontalOptions="FillAndExpand" Text="{Binding Cambio, StringFormat='{00:N2}'}" TextColor="{Binding CambioColor}" />
 
                         <Button Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Text="Finalizar" HeightRequest="35" WidthRequest="100" 
                                 Padding="0" Margin="0,5,0,0"
