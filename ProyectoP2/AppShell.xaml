@@ -5,11 +5,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ProyectoP2"
     xmlns:pages="clr-namespace:ProyectoP2.Views"
-    Shell.FlyoutBehavior="Flyout">
+    Shell.FlyoutBehavior="Flyout"
+    FlyoutBackgroundColor="#3B5D50">
     
 
     <Shell.FlyoutHeader>
-        <Image Source="bookswap.png" WidthRequest="120" Margin="10"></Image>
+        <Image Source="bookswap.png" WidthRequest="160" Margin="30"></Image>
     </Shell.FlyoutHeader>
 
     <ShellContent
@@ -42,6 +43,7 @@
         ContentTemplate="{DataTemplate pages:HistoriaVentaPage}"
         Route="HistoriaVentaPage" />
 
+    
     <MenuItem IconImageSource="stand_by.svg" Text="Cerrar Sesión" Clicked="CerrarSesion_Clicked">
         
     </MenuItem>

@@ -17,14 +17,14 @@ namespace ProyectoP2.ViewModels
 
         [ObservableProperty]
         private bool isLoading;
-        
+
         [ObservableProperty]
-        private ObservableCollection<VentaDTO> listaVenta = new(); 
+        private ObservableCollection<VentaDTO> listaVenta = new();
 
         public HistorialVentaVM(VentaDbContext context)
         {
             _context = context;
-            Task.Run(ObtenerVentas); 
+            Task.Run(ObtenerVentas);
         }
 
         private async Task ObtenerVentas()
@@ -71,7 +71,7 @@ namespace ProyectoP2.ViewModels
             }
             catch (Exception ex)
             {
-                // Manejar errores aquí
+                Console.WriteLine($"Error: {ex.Message}");
             }
         }
 
