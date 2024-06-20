@@ -3,6 +3,7 @@ using ProyectoP2.DataAccess;
 using ProyectoP2.ViewModels;
 using CommunityToolkit.Maui;
 using ProyectoP2.Views;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProyectoP2
 {
@@ -45,7 +46,8 @@ namespace ProyectoP2
             builder.Services.AddTransient<MainVM>();
 
             var dbContext = new VentaDbContext();
-            dbContext.Database.EnsureCreated();
+            
+            dbContext.Database.Migrate();
             dbContext.Dispose();
 
 #if DEBUG

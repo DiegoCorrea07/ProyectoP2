@@ -54,12 +54,7 @@
 
 
                 <ScrollView Grid.Row="3" IsVisible="{Binding DataEsVisible}">
-
                     <CollectionView ItemsSource="{Binding ListaCategorias}">
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout ItemSpacing="5" Orientation="Vertical"/>
-                        </CollectionView.ItemsLayout>
-
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:CategoriaDTO">
                                 <Border Padding="10,5" HorizontalOptions="FillAndExpand">
@@ -70,27 +65,34 @@
                                     <StackLayout Orientation="Horizontal" HeightRequest="50" Spacing="2">
                                         <Label VerticalOptions="Center" Text="{Binding Nombre}" HorizontalOptions="StartAndExpand"/>
 
-                                        <Button FontFamily="FaSolid" Text="{Static util:IconFont.Pencil}" FontSize="24" Padding="4" HeightRequest="35" WidthRequest="35"
-                                                BackgroundColor="{StaticResource bgInfo}"  
-                                                TextColor="White"
-                                                Command="{Binding BindingContext.EditarCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"/>
+                                        <Button 
+                                            FontFamily="FaSolid" 
+                                            Text="{Static util:IconFont.Pencil}" 
+                                            FontSize="24" 
+                                            Padding="4" 
+                                            HeightRequest="35" 
+                                            WidthRequest="35"
+                                            BackgroundColor="{StaticResource bgInfo}"
+                                            TextColor="White"
+                                            Command="{Binding BindingContext.EditarCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
+                                            CommandParameter="{Binding .}"></Button>
 
-                                        <!-- Delete Button -->
-                                        <Button FontFamily="FaSolid" Text="{Static util:IconFont.Trash}" FontSize="24" Padding="4" HeightRequest="45" WidthRequest="45"
-                                                BackgroundColor="{StaticResource bgDanger}"
-                                                TextColor="White"
-                                                Command="{Binding BindingContext.EliminarCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
-                                                CommandParameter="{Binding}"/>
+                                        <Button 
+                                            FontFamily="FaSolid" 
+                                            Text="{Static util:IconFont.Trash}" 
+                                            FontSize="24" 
+                                            Padding="4" 
+                                            HeightRequest="35" 
+                                            WidthRequest="35"
+                                            BackgroundColor="{StaticResource bgDanger}"
+                                            TextColor="White"
+                                            Command="{Binding BindingContext.EliminarCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
+                                            CommandParameter="{Binding .}"></Button>
                                     </StackLayout>
                                 </Border>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
-
                     </CollectionView>
-
-
-
-
                 </ScrollView>
 
 

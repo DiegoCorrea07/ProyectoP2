@@ -33,7 +33,7 @@ namespace ProyectoP2.ViewModels
         [ObservableProperty]
         private int totalCategorias;
 
-        private async Task ObtenerResumen()
+        public async Task ObtenerResumen()
         {
             double totalingresos = 0;
             var lstVentas = await _context.Ventas.ToListAsync();
@@ -46,6 +46,11 @@ namespace ProyectoP2.ViewModels
             TotalVentas = _context.Ventas.Count();
             TotalProductos = _context.Productos.Count();
             TotalCategorias = _context.Categorias.Count();
+
+            OnPropertyChanged(nameof(TotalIngresos));
+            OnPropertyChanged(nameof(TotalVentas));
+            OnPropertyChanged(nameof(TotalProductos));
+            OnPropertyChanged(nameof(TotalCategorias));
         }
 
     }

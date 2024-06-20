@@ -131,6 +131,8 @@ namespace ProyectoP2.ViewModels
 
         }
 
+
+
         [RelayCommand]
         private void Filtrar()
         {

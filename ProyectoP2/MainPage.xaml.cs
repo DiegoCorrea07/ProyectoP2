@@ -1,18 +1,27 @@
 ﻿using ProyectoP2.ViewModels;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace ProyectoP2
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        private MainVM _viewModel;
 
         public MainPage(MainVM vm)
         {
             InitializeComponent();
             BindingContext = vm;
+            _viewModel = vm;
+
         }
 
-
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            if (_viewModel != null)
+            {
+                await _viewModel.ObtenerResumen();
+            }
+        }
     }
-
 }

@@ -8,6 +8,7 @@ using ProyectoP2.DTOs;
 using ProyectoP2.Models;
 using ProyectoP2.Utilities;
 using ProyectoP2.Views;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProyectoP2.ViewModels
 {
@@ -118,6 +119,7 @@ namespace ProyectoP2.ViewModels
             Total = DetalleVenta.Sum(c => c.Total);
         }
 
+
         [RelayCommand]
         private async Task FinalizarVenta()
         {
@@ -139,35 +141,62 @@ namespace ProyectoP2.ViewModels
                 return;
             }
 
+            // Verificar el inventario antes de registrar la venta
+            var productosId = DetalleVenta.Select(dv => dv.Producto.IdProducto).Distinct().ToList();
+            var productosDisponibles = await _context.Productos.Where(p => productosId.Contains(p.IdProducto)).ToListAsync();
+
+            foreach (var item in DetalleVenta)
+            {
+                var productoDisponible = productosDisponibles.FirstOrDefault(p => p.IdProducto == item.Producto.IdProducto);
+                if (productoDisponible == null || productoDisponible.Cantidad < item.Cantidad)
+                {
+                    await Shell.Current.DisplayAlert("Error", $"No hay suficiente stock de {item.Producto.Nombre}. Cantidad disponible: {productoDisponible?.Cantidad ?? 0}", "Aceptar");
+                    return; // Detener la venta si no hay suficiente stock
+                }
+            }
+
             string nombreCliente = await Shell.Current.DisplayPromptAsync("Información del cliente", "Nombres:", accept: "Continuar", cancel: "Volver", placeholder: "(opcional)");
+
+            Venta venta = null; // Declarar venta fuera del bloque using
 
             try
             {
-                List<DetalleVenta> detalleVentas = new List<DetalleVenta>();
-                foreach (var item in DetalleVenta)
+                using (var transaction = await _context.Database.BeginTransactionAsync())
                 {
-                    detalleVentas.Add(new DetalleVenta
+                    //Registrar la venta
+                    List<DetalleVenta> detalleVentas = new List<DetalleVenta>();
+                    foreach (var item in DetalleVenta)
                     {
-                        IdProducto = item.Producto.IdProducto,
-                        Cantidad = item.Cantidad,
-                        Total = item.Total
-                    });
+                        detalleVentas.Add(new DetalleVenta
+                        {
+                            IdProducto = item.Producto.IdProducto,
+                            Cantidad = item.Cantidad,
+                            Total = item.Total
+                        });
+
+                        // Actualizar inventario
+                        var productoDisponible = productosDisponibles.First(p => p.IdProducto == item.Producto.IdProducto);
+                        productoDisponible.Cantidad -= item.Cantidad;
+                        _context.Productos.Update(productoDisponible);
+                    }
+
+                    venta = new Venta()
+                    {
+                        Cliente = nombreCliente,
+                        NumeroVenta = Guid.NewGuid().ToString("N").Substring(0, 10).ToUpper(),
+                        Total = Total,
+                        PagoCon = PagoCon,
+                        Cambio = Cambio,
+                        FechaRegistro = DateTime.Now,
+                        RefDetalleVenta = detalleVentas
+                    };
+
+                    _context.Ventas.Add(venta);
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
                 }
 
-                Venta venta = new Venta()
-                {
-                    Cliente = nombreCliente,
-                    NumeroVenta = Guid.NewGuid().ToString("N").Substring(0, 10).ToUpper(),
-                    Total = Total,
-                    PagoCon = PagoCon,
-                    Cambio = Cambio,
-                    FechaRegistro = DateTime.Now,
-                    RefDetalleVenta = detalleVentas
-                };
-
-                _context.Ventas.Add(venta);
-                await _context.SaveChangesAsync();
-
+                // Mostrar el número de venta después de registrar la venta y confirmar la transacción
                 await Shell.Current.DisplayAlert("Listo!", $"El número de venta '{venta.NumeroVenta}' fue generada.", "Aceptar");
 
                 DetalleVenta.Clear();
@@ -175,11 +204,12 @@ namespace ProyectoP2.ViewModels
                 Cambio = 0;
                 MostarTotal();
             }
-            catch
+            catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Error!", "No se pudo registrar la venta", "Aceptar");
+                await Shell.Current.DisplayAlert("Error!", $"No se pudo registrar la venta: {ex.Message}", "Aceptar");
             }
         }
+
 
 
 
