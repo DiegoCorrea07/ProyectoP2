@@ -18,7 +18,7 @@ namespace ProyectoP2.ViewModels
         [RelayCommand]
         private async Task Login()
         {
-            if (Usuario == "Admin" && Password == "123")
+            if (Usuario == "Onichan" && Password == "Admin123")
             {
                 Preferences.Set("logueado", "si");
                 Application.Current.MainPage = new AppShell();

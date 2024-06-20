@@ -1,3 +1,4 @@
+using ProyectoP2.DataAccess;
 using ProyectoP2.ViewModels;
 
 namespace ProyectoP2.Views;
@@ -8,19 +9,17 @@ public partial class InventarioPage : ContentPage
     public InventarioPage(InventarioVM viewModel)
 	{
 		InitializeComponent();
-        BindingContext = viewModel;
         _viewModel = viewModel;
-
+        BindingContext = viewModel;
+        
     }
 
-    protected override async void OnAppearing()
+    private async void ActualizarProductos(object sender, EventArgs e)
     {
-        base.OnAppearing();
-
-        // Recargar los productos cuando la vista aparezca
-        if (_viewModel != null)
+        if(sender is Button button )
         {
-            await _viewModel.ObtenerProductos();
+            await _viewModel.Actualizar(); // Llamar al método del ViewModel
         }
     }
+
 }

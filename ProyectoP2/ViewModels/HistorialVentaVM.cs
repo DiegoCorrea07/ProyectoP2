@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
 using System;
+using CommunityToolkit.Mvvm.Input;
 
 namespace ProyectoP2.ViewModels
 {
@@ -24,16 +25,18 @@ namespace ProyectoP2.ViewModels
         public HistorialVentaVM(VentaDbContext context)
         {
             _context = context;
+
             Task.Run(ObtenerVentas);
         }
 
-        private async Task ObtenerVentas()
+        public async Task ObtenerVentas()
         {
             IsLoading = true;
             var lista = await _context.Ventas.OrderByDescending(v => v.IdVenta).ToListAsync();
 
             if (lista.Any())
             {
+                ListaVenta.Clear();
                 foreach (var item in lista)
                 {
                     ListaVenta.Add(new VentaDTO
@@ -49,32 +52,36 @@ namespace ProyectoP2.ViewModels
             }
             IsLoading = false;
         }
+        private RelayCommand _actualizarCommand;
+        public RelayCommand ActualizarCommand => _actualizarCommand ??= new RelayCommand(async () => await Actualizar());
 
+        public async Task Actualizar()
+        {
+            ObtenerVentas();
+        }
 
         public ICommand DescargarVentaCommand => new Command<VentaDTO>(async (venta) => await DescargarVentaAsync(venta));
 
         public async Task DescargarVentaAsync(VentaDTO venta)
         {
-            try
+            bool answer = await Shell.Current.DisplayAlert("Mensaje", "Desea descargar la venta selecionada?", "Si, continuar", "No, volver");
+            if (answer)
             {
-                var ventasText = GenerarTextoVenta(venta);
-
-                var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                var filePath = Path.Combine(desktopPath, $"venta_{venta.NumeroVenta}_{DateTime.Now:yyyyMMdd_HHmmss}.txt");
-
-                File.WriteAllText(filePath, ventasText);
-
-                await Share.RequestAsync(new ShareFileRequest
+                try
                 {
-                    Title = "Compartir Detalles de Venta",
-                    File = new ShareFile(filePath)
-                });
+                    var ventasText = GenerarTextoVenta(venta);
 
-                await Application.Current.MainPage.DisplayAlert("Éxito", "Descarga realizada con éxito", "OK");
-            }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", $"Error al descargar la venta: {ex.Message}", "OK");
+                    var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    var filePath = Path.Combine(desktopPath, $"venta_{venta.NumeroVenta}_{DateTime.Now:yyyyMMdd_HHmmss}.txt");
+
+                    File.WriteAllText(filePath, ventasText);
+
+                    await Application.Current.MainPage.DisplayAlert("Éxito", "Descarga realizada con éxito", "OK");
+                }
+                catch (Exception ex)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", $"Error al descargar la venta: {ex.Message}", "OK");
+                }
             }
         }
         

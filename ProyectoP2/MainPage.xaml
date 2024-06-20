@@ -30,7 +30,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" FontFamily="FaSolid" TextColor="{StaticResource Primary}" Text="{Static util:IconFont.Wallet}" FontSize="40"/>
                     <Label Grid.Column="1" Grid.Row="0" Text="Total Ingresos"/>
-                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding TotalIngresos}" TextColor="#1d94ab"/>
+                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding TotalIngresos, StringFormat='$ {0:F2}'}" TextColor="#1d94ab"/>
                 </Grid>
             </Frame>
 

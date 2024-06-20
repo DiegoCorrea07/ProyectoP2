@@ -15,6 +15,7 @@ namespace ProyectoP2
 
         }
 
+        //Para actualizar la View
         protected override async void OnAppearing()
         {
             base.OnAppearing();

@@ -55,6 +55,13 @@
                      BackgroundColor="{StaticResource bgSuccess}"
                      TextColor="White"
                      Command="{Binding IrProductoCommand}"></Button>
+
+                    <Button FontFamily="FaSolid" Text="{Static util:IconFont.RotateLeft}" FontSize="24" Padding="4" HeightRequest="35" WidthRequest="35"
+                     BackgroundColor="{StaticResource bgFondo}" 
+                     TextColor="White"
+                     Command="{Binding BindingContext.ActualizarCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
+                     CommandParameter="{Binding}"/>
+
                 </StackLayout>
 
                 <BoxView Grid.Row="2" HeightRequest="2" Color="LightGray"/>

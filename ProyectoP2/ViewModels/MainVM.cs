@@ -15,10 +15,8 @@ namespace ProyectoP2.ViewModels
         public MainVM(VentaDbContext context)
         {
             _context = context;
-            MainThread.BeginInvokeOnMainThread(async () =>
-            {
-                await Task.Run(async () => await ObtenerResumen());
-            });
+
+            Task.Run(async () => await ObtenerResumen());
         }
 
         [ObservableProperty]
@@ -35,23 +33,38 @@ namespace ProyectoP2.ViewModels
 
         public async Task ObtenerResumen()
         {
-            double totalingresos = 0;
-            var lstVentas = await _context.Ventas.ToListAsync();
-            foreach (var item in lstVentas)
+            try
             {
-                totalingresos += item.Total;
+                double totalIngresos = 0;
+
+                // Obtener todas las ventas de manera asincrónica
+                var lstVentas = await _context.Ventas.ToListAsync();
+
+                // Calcular total de ingresos
+                foreach (var item in lstVentas)
+                {
+                    totalIngresos += item.Total;
+                }
+
+                // Actualizar propiedades observables
+                TotalIngresos = totalIngresos;
+                TotalVentas = await _context.Ventas.CountAsync(); // CountAsync() es preferible a Count() para operaciones asincrónicas
+                TotalProductos = await _context.Productos.CountAsync();
+                TotalCategorias = await _context.Categorias.CountAsync();
+
+                // Notificar cambios en las propiedades observables
+                OnPropertyChanged(nameof(TotalIngresos));
+                OnPropertyChanged(nameof(TotalVentas));
+                OnPropertyChanged(nameof(TotalProductos));
+                OnPropertyChanged(nameof(TotalCategorias));
             }
-
-            TotalIngresos = totalingresos;
-            TotalVentas = _context.Ventas.Count();
-            TotalProductos = _context.Productos.Count();
-            TotalCategorias = _context.Categorias.Count();
-
-            OnPropertyChanged(nameof(TotalIngresos));
-            OnPropertyChanged(nameof(TotalVentas));
-            OnPropertyChanged(nameof(TotalProductos));
-            OnPropertyChanged(nameof(TotalCategorias));
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener el resumen: {ex.Message}");
+                // Puedes manejar la excepción según sea necesario
+            }
         }
+
 
     }
 }

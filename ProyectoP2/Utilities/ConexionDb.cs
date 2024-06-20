@@ -10,7 +10,7 @@ namespace ProyectoP2.Utilities
     {
         public static string ObtenerConnectionString()
         {
-            return "Server=DIEGOC\\SQLEXPRESS02;Database=VentasData;User ID=diego;Password=@DiegoC2024.;MultipleActiveResultSets=true;Encrypt=true;TrustServerCertificate=true;";
+            return "Server=DIEGOC\\SQLEXPRESS02;Database=VentasData;User ID=diego;Password=@DiegoC2024.;MultipleActiveResultSets=true;Encrypt=true;TrustServerCertificate=true;Command Timeout=60;";
         }
     }
 }

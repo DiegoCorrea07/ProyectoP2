@@ -10,7 +10,6 @@ public partial class HistoriaVentaPage : ContentPage
     public HistoriaVentaPage(HistorialVentaVM vm)
     {
         InitializeComponent();
-        _viewModel = vm; // Guardar la referencia al ViewModel
         BindingContext = vm;
     }
 
@@ -21,4 +20,14 @@ public partial class HistoriaVentaPage : ContentPage
             await _viewModel.DescargarVentaAsync(venta); // Llamar al método del ViewModel
         }
     }
+
+    private async void ActualizarProductos(object sender, EventArgs e)
+    {
+        if (sender is Button button)
+        {
+            await _viewModel.Actualizar(); // Llamar al método del ViewModel
+        }
+    }
+
+
 }

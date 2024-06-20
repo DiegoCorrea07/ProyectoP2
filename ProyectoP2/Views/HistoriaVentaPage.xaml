@@ -23,6 +23,11 @@
                     <Label Text="Historial de ventas" FontSize="Subtitle" HorizontalOptions="StartAndExpand"/>
                     <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" Color="Blue" HeightRequest="25" 
                                        VerticalOptions="Start"/>
+                    <Button FontFamily="FaSolid" Text="{Static util:IconFont.RotateLeft}" FontSize="24" Padding="4" HeightRequest="35" WidthRequest="35"
+                     BackgroundColor="{StaticResource bgFondo}" 
+                     TextColor="White"
+                     Command="{Binding BindingContext.ActualizarCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
+                     CommandParameter="{Binding}"/>
                 </StackLayout>
 
                 <ScrollView Grid.Row="1" IsVisible="{Binding ListaVenta.Count, Converter={StaticResource EmptyToBoolConverter}}">
